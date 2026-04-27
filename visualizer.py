@@ -1,5 +1,6 @@
 import pygame
 import random
+from sortingfunctions import bubble_sort_step
 
 # initializing paygane
 pygame.init()
@@ -32,20 +33,9 @@ while running:
     bar_width = WIDTH // len(numbers)
 
     if sorting:
-        if i < len(numbers):
-            if j < len(numbers) - i - 1:
-                if numbers[j] > numbers[j + 1]:
-                    numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
+        numbers, i, j, sorting = bubble_sort_step(numbers, i, j)
 
-                j += 1
-
-            else:
-                j = 0
-                i += 1
-    else:
-        sorting = False
-
-    # creating the numbers visual propereties
+    # creating the numbers visual propereties, adjustinf them during the sorting
     for idx, num in enumerate(numbers):
         x = idx * bar_width
         y = HEIGHT - num
@@ -59,6 +49,6 @@ while running:
         pygame.draw.rect(screen, color, (x, y, bar_width, num))
 
     pygame.display.update()
-    pygame.time.delay(20)
+    pygame.time.delay(40)
 
 pygame.quit()
