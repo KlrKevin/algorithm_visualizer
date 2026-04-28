@@ -1,6 +1,7 @@
 import pygame
 import random
-from sortingfunctions import bubble_sort_step
+from sortingfunctions import bubble_sort_step, selection_sort_step
+from visualizers import bubble_sort_visual, selection_sort_visual
 
 # initializing paygane
 pygame.init()
@@ -16,8 +17,10 @@ pygame.display.set_caption("Algorithm Visualizer")
 numbers = [random.randint(10, 500) for _ in range(50)]
 i = 0
 j = 0
+min_idx = 0
 sorting = True
 running = True
+clock = pygame.time.Clock()
 
 # loop that updates the surface while running
 while running:
@@ -33,22 +36,20 @@ while running:
     bar_width = WIDTH // len(numbers)
 
     if sorting:
-        numbers, i, j, sorting = bubble_sort_step(numbers, i, j)
+        numbers, i, j, min_idx, sorting = selection_sort_step(numbers, i, j, min_idx)
+        # numbers, i, j, sorting = bubble_sort_step(numbers, i, j)
 
-    # creating the numbers visual propereties, adjustinf them during the sorting
+    # creating the numbers visual propereties, adjusting them during the sorting for bubble sort
     for idx, num in enumerate(numbers):
-        x = idx * bar_width
-        y = HEIGHT - num
-
-        color = (0, 255, 0)
-
-        if idx == j or idx == j + 1:
-            color = (255, 0, 0)  # red for comparison
+        # x, y, color = bubble_sort_visual(numbers, i, j, idx, HEIGHT, bar_width)
+        x, y, color = selection_sort_visual(
+            numbers, i, j, min_idx, idx, HEIGHT, bar_width
+        )
 
         # pygame.draw.rect(surface, color, (x, y, width, height)) drawing the numbers
         pygame.draw.rect(screen, color, (x, y, bar_width, num))
 
     pygame.display.update()
-    pygame.time.delay(40)
+    clock.tick(60)
 
 pygame.quit()

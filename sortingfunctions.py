@@ -23,3 +23,25 @@ def bubble_sort_step(numbers, i, j):
     # this happens if everything has been sorted
     else:
         return numbers, i, j, False
+
+
+def selection_sort_step(numbers, i, j, min_index):
+    if i < len(numbers):
+        if j < len(numbers):
+            if numbers[j] < numbers[min_index]:
+                min_index = j
+
+            j += 1
+            return numbers, i, j, min_index, True
+
+        else:
+            # swap the smaller number with the current one
+            numbers[i], numbers[min_index] = numbers[min_index], numbers[i]
+
+            i += 1
+            j = i + 1
+            min_index = i
+
+            return numbers, i, j, min_index, True
+
+    return numbers, i, j, min_index, False
