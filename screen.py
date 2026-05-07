@@ -86,6 +86,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for algo in ALGOS:
+                if btn_rects[algo].collidepoint(mx, my):
+                    current_algo = algo
+
     # ── sorting step ──────────────────────────────────────────
     bar_width = WIDTH // N
 
